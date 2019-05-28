@@ -4,7 +4,7 @@ import injectSheet from 'react-jss';
 const styles = {
   box: {
     'max-width': '1200px',
-    margin: '20px 20px 0',
+    margin: '30px 20px 0',
   },
   addArea: {
     width: '100%',
@@ -73,7 +73,6 @@ class TodoBox extends Component {
             <label className={classes.label}>添加事项</label>
             <input
               className={classes.textInput}
-              autoFocus
               type="text"
               placeholder="请输入待办事项"
               onChange={event => this.handleChange(event)}

@@ -52,7 +52,7 @@ class TodoList extends Component {
         <ul className={classes.list}>
           {todos.map((todo, index) => (
             <li key={index} className={classes.item}>
-              <span>{todo}</span>
+              <span>{todo ? todo : ''}</span>
               <span>
                 {/* <button className={classes.btn}>编辑</button> */}
                 <button
