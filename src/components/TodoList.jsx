@@ -24,7 +24,10 @@ const styles = {
   },
   btn: {
     'font-size': '12px',
-    color: '#61dafb',
+    color: '#11cbfd',
+    outline: 'none',
+    border: 'none',
+    background: 'none',
   },
 };
 

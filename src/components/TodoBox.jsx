@@ -26,11 +26,11 @@ const styles = {
   },
   btn: {
     padding: '4px 6px',
-    'background-color': '#61dafb',
+    'background-color': '#91e6fd',
     outline: 'none',
     border: '1px solid #d9d9d9',
     'border-radius': '4px',
-    color: '#333',
+    color: '#555',
     'font-weight': 'bold',
   },
   desp: {
