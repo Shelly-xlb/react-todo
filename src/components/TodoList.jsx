@@ -22,6 +22,13 @@ const styles = {
     'justify-content': 'space-between',
     'list-style': 'none',
   },
+  textInput: {
+    padding: '6px 8px',
+    border: '1px solid #d9d9d9',
+    'border-radius': '4px',
+    'font-size': '14px',
+    outline: 'none',
+  },
   btn: {
     'font-size': '12px',
     color: '#11cbfd',
@@ -36,7 +43,29 @@ class TodoList extends Component {
     super(props);
     this.state = {
       todos: props.todos,
+      isEdit: false,
+      value: '',
     };
+  }
+
+  handleChange(event) {
+    this.setState({
+      value: event.target.value,
+    });
+  }
+
+  handleEdit(event) {
+    this.setState({
+      isEdit: true,
+    });
+    event.preventDefault();
+  }
+
+  handleCancel(event) {
+    this.setState({
+      isEdit: false,
+    });
+    event.preventDefault();
   }
 
   handleDelete(event, todos, index) {
@@ -52,15 +81,39 @@ class TodoList extends Component {
         <ul className={classes.list}>
           {todos.map((todo, index) => (
             <li key={index} className={classes.item}>
-              <span>{todo ? todo : ''}</span>
+              {this.state.isEdit ? (
+                <input
+                  className={classes.textInput}
+                  type="text"
+                  onChange={event => this.handleChange(event)}
+                  ref={textInput => {
+                    this.textInput = textInput;
+                  }}
+                />
+              ) : (
+                <span>{todo ? todo : ''}</span>
+              )}
               <span>
-                {/* <button className={classes.btn}>编辑</button> */}
-                <button
-                  className={classes.btn}
-                  onClick={event => this.handleDelete(event, todos, index)}
-                >
-                  删除
-                </button>
+                {this.state.isEdit ? (
+                  <span>
+                    <button className={classes.btn}>确定</button>
+                    <button className={classes.btn} onClick={event => this.handleCancel(event)}>
+                      取消
+                    </button>
+                  </span>
+                ) : (
+                  <span>
+                    <button className={classes.btn} onClick={event => this.handleEdit(event)}>
+                      修改
+                    </button>
+                    <button
+                      className={classes.btn}
+                      onClick={event => this.handleDelete(event, todos, index)}
+                    >
+                      删除
+                    </button>
+                  </span>
+                )}
               </span>
             </li>
           ))}
