@@ -59,6 +59,10 @@ class TodoBox extends Component {
   }
 
   handleSubmit(event) {
+    if (!this.textInput.value) {
+      alert('Please input something!');
+      return;
+    }
     this.props.onAddTodo(this.textInput.value);
     event.preventDefault();
     this.textInput.value = '';

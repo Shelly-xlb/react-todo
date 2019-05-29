@@ -61,6 +61,15 @@ class TodoList extends Component {
     event.preventDefault();
   }
 
+  handleConfirm(event, todos, index) {
+    const arr = [...todos];
+    arr.splice(index, 1, this.textInput.value);
+    this.setState({
+      todos: [...arr],
+    });
+    event.preventDefault();
+  }
+
   handleCancel(event) {
     this.setState({
       isEdit: false,
@@ -96,14 +105,22 @@ class TodoList extends Component {
               <span>
                 {this.state.isEdit ? (
                   <span>
-                    <button className={classes.btn}>确定</button>
+                    <button
+                      className={classes.btn}
+                      onClick={event => this.handleConfirm(event, todos, index)}
+                    >
+                      确定
+                    </button>
                     <button className={classes.btn} onClick={event => this.handleCancel(event)}>
                       取消
                     </button>
                   </span>
                 ) : (
                   <span>
-                    <button className={classes.btn} onClick={event => this.handleEdit(event)}>
+                    <button
+                      className={classes.btn}
+                      onClick={event => this.handleEdit(event, index)}
+                    >
                       修改
                     </button>
                     <button
