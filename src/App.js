@@ -12,6 +12,7 @@ class App extends Component {
     super(props);
     this.state = {
       todos: ['This is my first thing to do!'],
+      searchList: [],
     };
     this.addTodo = this.addTodo.bind(this);
     this.delTodo = this.delTodo.bind(this);
@@ -19,6 +20,7 @@ class App extends Component {
   }
   addTodo(todos) {
     this.setState({
+      searchList: [...this.state.searchList, todos],
       todos: [...this.state.todos, todos],
     });
   }
@@ -27,21 +29,25 @@ class App extends Component {
     arr.splice(index, 1);
     this.setState({
       todos: [...arr],
+      searchList: [...arr],
     });
   }
-  // todo
-  // 确保每一次搜索的 tmpArr 都是最原始的数组
   search(value) {
     const tmpArr = [...this.state.todos];
     const arr = tmpArr.filter(item => {
       return item.indexOf(value) > -1;
     });
     this.setState({
-      todos: [...arr],
+      searchList: [...arr],
+    });
+  }
+  componentWillMount() {
+    this.setState({
+      searchList: [...this.state.todos],
     });
   }
   render() {
-    const { todos } = this.state;
+    const { todos, searchList } = this.state;
     return (
       <div className="App">
         <header className="App-header">
@@ -50,7 +56,7 @@ class App extends Component {
         <main>
           <SearchBox onSearch={this.search} todos={todos} />
           <TodoBox todosLength={todos.length} onAddTodo={this.addTodo} />
-          <TodoList onDelTodo={this.delTodo} todos={todos} />
+          <TodoList onDelTodo={this.delTodo} todos={searchList} />
         </main>
       </div>
     );
